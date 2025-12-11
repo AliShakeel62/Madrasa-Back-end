@@ -9,7 +9,9 @@ const teacherRouter = require('./router/teacherRouter');
 const SignupRouter = require("./router/SignupRouter")
 const LoginRouter = require("./router/loginRouter")
 const studentAttendenceRouter = require("./router/studentAttendenceRouter")
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

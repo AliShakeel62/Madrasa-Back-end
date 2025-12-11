@@ -5,6 +5,7 @@ const teacherSchema = new moongose.Schema({
     subject: String,
     joiningDate: {type:Date , default:Date.now},
     address: String,
+    createdAt: { type: Date, default: Date.now }
 })
 const Teacher = moongose.model('Teachers', teacherSchema);
 module.exports = Teacher;

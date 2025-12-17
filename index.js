@@ -10,6 +10,7 @@ const SignupRouter = require("./router/SignupRouter")
 const LoginRouter = require("./router/loginRouter")
 const studentAttendenceRouter = require("./router/studentAttendenceRouter")
 const cors = require("cors");
+const authenticateToken = require('./middleware/authMiddleware');
 
 app.use(cors());
 app.use(express.json());
@@ -21,8 +22,8 @@ app.get("/", (req, res) => {
 })
 
 
-app.use("/students",studentRouter);
-app.use("/teachers",teacherRouter);
+app.use("/students",authenticateToken,studentRouter);
+app.use("/teachers",authenticateToken,teacherRouter);
 app.use("/signup",SignupRouter);
 app.use("/login",LoginRouter);
 app.use("/studentattendences",studentAttendenceRouter);

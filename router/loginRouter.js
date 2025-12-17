@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../schema/user.schema");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = process.env.JWT_SECRET;
 router.post("/", async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -22,9 +24,12 @@ router.post("/", async (req, res) => {
             return res.status(401).send({ message: "Invalid credentials" });
         }
         else {
-            return res.status(200).send({
+            const usertoken = jwt.sign({ userId: user._id, email: user.email },JWT_SECRET, { expiresIn: '7d' });
+
+            return res.status(200).json({
                 message: "login successful",
-                data: user
+                data: user,
+                token: usertoken
             });
 
         }
